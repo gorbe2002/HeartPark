@@ -19,7 +19,7 @@ df = pd.DataFrame(data)
 st.sidebar.title("Navigation Bar")
 
 # Add different options in the sidebar as a dropdown (selectbox)
-option = st.sidebar.selectbox("Choose a page", ["About Us", "Parks", "Shirts", "Shorts", "Pants", "Backpacks", "Outfits"])
+option = st.sidebar.selectbox("Choose a page", ["About Us", "Parks", "Outfits"])
 
 # About tab content
 if option == "About Us":
@@ -75,19 +75,6 @@ elif option == "Parks":
 
         # Display the selected date range
         st.write(f"You selected the date range from {date_range[0]} to {date_range[1]}")
-
-elif "Shirts":
-    pass
-
-elif "Pants":
-    pass
-
-elif "Shorts":
-    pass
-
-elif "Backpacks":
-    pass
-
 
 # Outfits tab content
 elif option == "Outfits":
