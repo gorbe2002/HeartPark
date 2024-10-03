@@ -1,17 +1,15 @@
 import streamlit as st
 import pandas as pd
 
-# North Bergen coordinates (https://www.latlong.net/convert-address-to-lat-long.html)
+# park coordinates (https://www.latlong.net/convert-address-to-lat-long.html)
 data = {
-    'latitude': [40.808880],
-    'longitude': [-74.001556],
+    'park_name': ["North Bergen 80th Street Park", "Guttenberg/North Bergen Waterfront Park", "Donnelly Memorial Park"],
+    'park_city' : ["North Bergen", "North Bergen", "West New York"],
+    'latitude': [40.801472, 40.791580, 40.788860],
+    'longitude': [-74.006798, -73.998560, -73.999930],
+    'zip_code': ["07047", "07047", "07093"]
 }
 df = pd.DataFrame(data)
-
-# can use given dataset here:
-zip_to_city = {
-    "07047": "North Bergen"
-}
 
 # Create a sidebar for navigation
 st.sidebar.title("Navigation Bar")
@@ -31,10 +29,20 @@ elif option == "Parks":
     user_input = st.text_input("Enter your zip code here:")
 
     # Get the park name based on the zip code
-    if user_input in zip_to_city:
-        st.title("Parks in " + zip_to_city[user_input])
-        # st.title("Simple Map with st.map")
-        st.map(df)
+    if user_input in df['zip_code'].values:
+        # Filter the DataFrame for the entered zip code
+        filtered_parks = df[df['zip_code'] == user_input]
+
+        parkCity = filtered_parks['park_city'].iloc[0]
+
+        st.title("Parks in " + parkCity + ":")
+
+        for park in filtered_parks['park_name']:
+            st.write(f"- {park}")  # Bulleted list
+
+        # Display map centered on the selected park
+        st.map(filtered_parks[['latitude', 'longitude']])
+
 
 # Outfits tab content
 elif option == "Outfits":
