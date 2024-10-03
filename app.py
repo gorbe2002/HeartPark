@@ -2,6 +2,13 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 import folium
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Loads the variables from the .env file
+
+api_key = os.getenv('OPENWEATHER_API_KEY')
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
