@@ -94,4 +94,4 @@ elif option == "Outfits":
     st.title("Outfit Selector")
     st.write("Here we provide a outfit selector.")
 
-print("cats")
+print("cats")st.title('herro')
