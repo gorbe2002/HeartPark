@@ -88,7 +88,6 @@ elif "Shorts":
 elif "Backpacks":
     pass
 
-
 # Outfits tab content
 elif option == "Outfits":
     st.title("Outfit Selector")
