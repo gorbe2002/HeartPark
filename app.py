@@ -5,11 +5,6 @@ import folium
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # Loads the variables from the .env file
-
-api_key = os.getenv('OPENWEATHER_API_KEY')
-
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
@@ -21,7 +16,7 @@ class Park(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
-# park data
+# park data (https://www.latlong.net/convert-address-to-lat-long.html)
 data = {
     'park_name': ["James J. Braddock North Hudson County Park", "Guttenberg/North Bergen Waterfront Park", "Donnelly Memorial Park"],
     'park_city': ["North Bergen", "North Bergen", "West New York"],
@@ -30,6 +25,9 @@ data = {
     'zip_code': ["07047", "07047", "07093"]
 }
 df = pd.DataFrame(data)
+
+load_dotenv()
+api_key = os.getenv('OPENWEATHER_API_KEY')
 
 @app.route('/')
 def index():
@@ -75,6 +73,10 @@ def parks():
 @app.route('/outfits')
 def outfits():
     return render_template('outfits.html')
+
+@app.route('/parkai')
+def parkai():
+    return render_template('parkai.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
