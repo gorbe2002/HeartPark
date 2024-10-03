@@ -40,8 +40,8 @@ elif option == "Parks":
         for park in filtered_parks['park_name']:
             st.write(f"- {park}")  # Bulleted list
 
-        # Display map centered on the selected park
-        st.map(filtered_parks[['latitude', 'longitude']])
+        # Display map centered on the selected park07047
+        st.map(filtered_parks[['latitude', 'longitude']], zoom=12)
 
 
 # Outfits tab content
