@@ -1,10 +1,20 @@
 from flask import Flask, render_template, request
-import folium
+from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
+import folium
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+db = SQLAlchemy(app)
 
-# Park data
+class Park(db.Model):
+    zip_code = db.Column(db.String(10), primary_key=True) 
+    park_name = db.Column(db.String(200))
+    park_city = db.Column(db.String(200))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+
+# park data
 data = {
     'park_name': ["James J. Braddock North Hudson County Park", "Guttenberg/North Bergen Waterfront Park", "Donnelly Memorial Park"],
     'park_city': ["North Bergen", "North Bergen", "West New York"],
@@ -22,6 +32,7 @@ def index():
 def parks():
     filtered_parks = None
     park_city = ""
+
     if request.method == 'POST':
         user_input = request.form['zip_code']
         if user_input in df['zip_code'].values:
@@ -41,8 +52,8 @@ def parks():
                     tooltip=row['park_name']
                 ).add_to(folium_map)
 
-            # Save the map to an HTML file
-            folium_map.save('templates/map.html')
+            # Save the map to an HTML file in the static folder
+            folium_map.save('static/map.html') 
 
     return render_template('parks.html', filtered_parks=filtered_parks, park_city=park_city)
 
