@@ -1,14 +1,20 @@
 import streamlit as st
 import pandas as pd
 
+# North Bergen coordinates (https://www.latlong.net/convert-address-to-lat-long.html)
 data = {
     'latitude': [40.808880],
     'longitude': [-74.001556],
 }
 df = pd.DataFrame(data)
 
+# can use given dataset here:
+zip_to_city = {
+    "07047": "North Bergen"
+}
+
 # Create a sidebar for navigation
-st.sidebar.title("Navigation")
+st.sidebar.title("Navigation Bar")
 
 # Add different options in the sidebar as a dropdown (selectbox)
 option = st.sidebar.selectbox("Choose a page", ["About", "Parks", "Outfits"])
@@ -21,16 +27,14 @@ if option == "About":
 # Parks tab content
 elif option == "Parks":
     # Create a textbox
-    user_input = st.text_input("Enter your text here:")
+    st.title("Welcome to our \"Park Selector\" feature!")
+    user_input = st.text_input("Enter your zip code here:")
 
-    # Display the user input
-    if user_input:
-        st.write("You entered:", user_input)
-
-    st.title("Our Parks")
-    st.write("Here we provide a list of parks.")
-    st.title("Simple Map with st.map")
-    st.map(df)
+    # Get the park name based on the zip code
+    if user_input in zip_to_city:
+        st.title("Parks in " + zip_to_city[user_input])
+        # st.title("Simple Map with st.map")
+        st.map(df)
 
 # Outfits tab content
 elif option == "Outfits":
