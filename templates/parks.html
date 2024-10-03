@@ -1,33 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parks</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <style>
-        #map {
-            width: 100%;
-            height: 400px;  /* Set a height to ensure the map is visible */
-        }
-    </style>
-</head>
-<body>
-    <h1>Parks in {{ park_city }}</h1>
-    
-    <form method="POST" action="/parks">
-        <input type="text" name="zip_code" placeholder="Enter Zip Code" required>
-        <button type="submit">Search</button>
-    </form>
+{% extends "base.html" %}
 
-    <div>
-        {% if filtered_parks is not none %}
-            <h2>Filtered Parks</h2>
-            <div>{{ map_html|safe }}</div> <!-- Correctly render the map here -->
-        {% else %}
-            <p>No parks found for this zip code.</p>
-        {% endif %}
-    </div>
-</body>
-</html>
+{% block content %}
+
+<h1>Parks in {{ park_city }}</h1>
+
+<form method="POST" action="/parks">
+    <input type="text" name="zip_code" placeholder="Enter Zip Code" required>
+    <button type="submit">Search</button>
+</form>
+
+<div>
+    {% if filtered_parks is not none %}
+        <h2>Filtered Parks</h2>
+        <div>{{ map_html|safe }}</div>
+    {% endif %}
+</div>
+{% endblock %}
