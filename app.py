@@ -22,16 +22,23 @@ def index():
 def parks():
     filtered_parks = None
     park_city = ""
+    map_html = ""
+
     if request.method == 'POST':
         user_input = request.form['zip_code']
         if user_input in df['zip_code'].values:
+            print(user_input)
             # Filter parks based on the entered zip code
             filtered_parks = df[df['zip_code'] == user_input]
+            print("filtered_parks", filtered_parks)
             park_city = filtered_parks['park_city'].iloc[0]
+            print("park_city is:", park_city)
 
             # Create a folium map centered at the average latitude and longitude of filtered parks
             map_center = [filtered_parks['latitude'].mean(), filtered_parks['longitude'].mean()]
             folium_map = folium.Map(location=map_center, zoom_start=14)
+
+            print(folium_map)
 
             # Add markers for each park in the filtered results
             for index, row in filtered_parks.iterrows():
@@ -41,10 +48,12 @@ def parks():
                     tooltip=row['park_name']
                 ).add_to(folium_map)
 
-            # Save the map to an HTML file
-            folium_map.save('templates/map.html')
+            #renders the map html representation
+            map_html = folium_map._repr_html_()
 
-    return render_template('parks.html', filtered_parks=filtered_parks, park_city=park_city)
+            print(map_html)
+
+    return render_template('parks.html', map_html=map_html, filtered_parks=filtered_parks, park_city=park_city)
 
 @app.route('/outfits')
 def outfits():
