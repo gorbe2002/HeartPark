@@ -91,7 +91,7 @@ def parks():
                     'humidity': weather_json['main']['humidity']
                 }
 
-                # Determine clothing recommendation based on temperature
+                # Determine clothing recommendation based on temperature (temp is in Celcius)
                 temperature = weather_data['temp']
                 if temperature < 0:
                     clothing_recommendation = "Wear heavy winter clothing: a warm coat, gloves, and a hat."
@@ -109,9 +109,9 @@ def parks():
 
     return render_template('parks.html', map_html=map_html, filtered_parks=filtered_parks, park_city=park_city, weather_data=weather_data, clothing_recommendation=clothing_recommendation)
 
-@app.route('/outfits')
-def outfits():
-    return render_template('outfits.html')
+@app.route('/clothing')
+def clothing():
+    return render_template('clothing.html')
 
 @app.route('/parkai', methods=['GET', 'POST'])
 def parkai():
