@@ -11,3 +11,6 @@ Competitive Advantage
 
 HeartPark Website
     For the website, we utilized tools like Python, Flask, Pandas, OpenWeatherAPI, Folium, HTML, CSS, and OpenAI to develop the central hub of Heart Park that lets users partake in the "Heart Park lifestyle." In particular, we have integrated a system for the user to enter a ZIP code (07047, 07093) to get a view of the nearest parks around them. We have a page that displays some of our clothing items, and we partially implemented a "Park AI" component that recommends outfits with our products to the user based on location and weather data. 
+
+# How to Run
+./run.script
