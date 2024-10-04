@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Enter your zip code:</h1>
+<h2>Enter your zip code</h2>
 
 <form method="POST" action="/parks">
     <input type="text" name="zip_code" placeholder="Enter Zip Code" required>
@@ -27,7 +27,7 @@
                     <li>Temperature: {{ weather_data.temp }}°C</li>
                     <li>Humidity: {{ weather_data.humidity }}%</li>
                 </ul>
-                <h3>Outfit Recommendation</h3>
+                <h2>Outfit Recommendation</h2>
                 <ul>
                     {% for item in clothing_recommendation %}
                         <li>{{ item }}</li>
