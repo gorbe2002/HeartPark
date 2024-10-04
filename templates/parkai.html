@@ -5,4 +5,20 @@
 <h1>rAIt my look!</h1>
 <p>Here we provide an AI-judge.</p>
 
+<h1>Ask the Park AI Ranger</h1>
+
+    <form method="POST">
+        <label for="pants_or_shorts">Choose your outfit:</label>
+        <select name="pants_or_shorts" id="pants_or_shorts">
+            <option value="Pants">Pants</option>
+            <option value="Shorts">Shorts</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if response_message %}
+        <h2>AI's Feedback:</h2>
+        <p>{{ response_message }}</p>
+    {% endif %}
+
 {% endblock %}

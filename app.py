@@ -4,6 +4,8 @@ import pandas as pd
 import folium
 from dotenv import load_dotenv
 import os
+import openai
+from openai import OpenAI
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -26,8 +28,10 @@ data = {
 }
 df = pd.DataFrame(data)
 
+# API keys
 load_dotenv()
-api_key = os.getenv('OPENWEATHER_API_KEY')
+weather_api_key = os.getenv('OPENWEATHER_API_KEY')
+openai_api_key = os.getenv('OPENAI_API_KEY')
 
 @app.route('/')
 def index():
@@ -74,9 +78,35 @@ def parks():
 def outfits():
     return render_template('outfits.html')
 
-@app.route('/parkai')
+@app.route('/parkai', methods=['GET', 'POST'])
 def parkai():
-    return render_template('parkai.html')
+    response_message = None
+
+    if request.method == 'POST':
+        pants_or_shorts = request.form['pants_or_shorts']
+        pants = True if pants_or_shorts == 'Pants' else False
+
+        PantsComp = "https://i.imgur.com/G6K2X9J.png"
+        ShortsComp = "https://i.imgur.com/cvhqvfY.png"
+
+        # Select appropriate image URL based on pants or shorts selection
+        url = PantsComp if pants else ShortsComp
+
+        # Make an OpenAI API call
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a friendly park ranger who knows fashion and always has an opinion on whether pants or shorts are the best option."},
+                {"role": "user", "content": f"Is this outfit suitable for a park that can go up to 100 degrees Fahrenheit?"},
+                {"role": "user", "content": f"Image: {url}"}
+            ],
+            temperature=0.5
+        )
+
+        # Get the response message
+        response_message = response['choices'][0]['message']['content']
+
+    return render_template('parkai.html', response_message=response_message)
 
 if __name__ == '__main__':
     app.run(debug=True)
