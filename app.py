@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 import os
 import openai
 from openai import OpenAI
+import requests
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -42,6 +44,7 @@ def parks():
     filtered_parks = None
     park_city = ""
     map_html = ""
+    weather_data = None
 
     if request.method == 'POST':
         user_input = request.form['zip_code']
@@ -72,7 +75,24 @@ def parks():
 
             print(map_html)
 
-    return render_template('parks.html', map_html=map_html, filtered_parks=filtered_parks, park_city=park_city)
+            # Get weather data from OpenWeatherAPI for the first park's location
+            lat = filtered_parks['latitude'].iloc[0]
+            lon = filtered_parks['longitude'].iloc[0]
+            weather_url = f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={weather_api_key}&units=metric'
+            
+            # Make the API call
+            weather_response = requests.get(weather_url)
+            if weather_response.status_code == 200:
+                weather_json = weather_response.json()
+                weather_data = {
+                    'description': weather_json['weather'][0]['description'],
+                    'temp': weather_json['main']['temp'],
+                    'humidity': weather_json['main']['humidity']
+                }
+            else:
+                weather_data = {'error': 'Could not retrieve weather information'}
+
+    return render_template('parks.html', map_html=map_html, filtered_parks=filtered_parks, park_city=park_city, weather_data=weather_data)
 
 @app.route('/outfits')
 def outfits():
