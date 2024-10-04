@@ -107,35 +107,35 @@ def parks():
 def clothing():
     return render_template('clothing.html')
 
-@app.route('/parkai', methods=['GET', 'POST'])
-def parkai():
-    response_message = None
+# @app.route('/parkai', methods=['GET', 'POST'])
+# def parkai():
+#     response_message = None
 
-    if request.method == 'POST':
-        pants_or_shorts = request.form['pants_or_shorts']
-        pants = True if pants_or_shorts == 'Pants' else False
+#     if request.method == 'POST':
+#         pants_or_shorts = request.form['pants_or_shorts']
+#         pants = True if pants_or_shorts == 'Pants' else False
 
-        PantsComp = "https://i.imgur.com/G6K2X9J.png"
-        ShortsComp = "https://i.imgur.com/cvhqvfY.png"
+#         PantsComp = "https://i.imgur.com/G6K2X9J.png"
+#         ShortsComp = "https://i.imgur.com/cvhqvfY.png"
 
-        # Select appropriate image URL based on pants or shorts selection
-        url = PantsComp if pants else ShortsComp
+#         # Select appropriate image URL based on pants or shorts selection
+#         url = PantsComp if pants else ShortsComp
 
-        # Make an OpenAI API call
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are a friendly park ranger who knows fashion and always has an opinion on whether pants or shorts are the best option."},
-                {"role": "user", "content": f"Is this outfit suitable for a park that can go up to 100 degrees Fahrenheit?"},
-                {"role": "user", "content": f"Image: {url}"}
-            ],
-            temperature=0.5
-        )
+#         # Make an OpenAI API call
+#         response = openai.ChatCompletion.create(
+#             model="gpt-3.5-turbo",
+#             messages=[
+#                 {"role": "system", "content": "You are a friendly park ranger who knows fashion and always has an opinion on whether pants or shorts are the best option."},
+#                 {"role": "user", "content": f"Is this outfit suitable for a park that can go up to 100 degrees Fahrenheit?"},
+#                 {"role": "user", "content": f"Image: {url}"}
+#             ],
+#             temperature=0.5
+#         )
 
-        # Get the response message
-        response_message = response['choices'][0]['message']['content']
+#         # Get the response message
+#         response_message = response['choices'][0]['message']['content']
 
-    return render_template('parkai.html', response_message=response_message)
+#     return render_template('parkai.html', response_message=response_message)
 
 if __name__ == '__main__':
     app.run(debug=True)
