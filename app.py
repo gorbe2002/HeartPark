@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 import folium
 from dotenv import load_dotenv
@@ -8,17 +7,6 @@ import openai
 from openai import OpenAI
 import requests
 from datetime import datetime, timedelta
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-db = SQLAlchemy(app)
-
-class Park(db.Model):
-    zip_code = db.Column(db.String(10), primary_key=True) 
-    park_name = db.Column(db.String(200))
-    park_city = db.Column(db.String(200))
-    latitude = db.Column(db.Float)
-    longitude = db.Column(db.Float)
 
 # park data (https://www.latlong.net/convert-address-to-lat-long.html)
 data = {
