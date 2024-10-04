@@ -5,4 +5,14 @@
 <h1>Clothing Selector</h1>
 <p>Here we provide an outfit selector.</p>
 
+<body>
+    {% for key,value in clothesDict.items() %}
+        <div>
+            <img src="{{url_for('static', filename=value[1])}}" length="300" width="300"/>
+            <h5>{{key}}</h5>
+            <p>Price: {{value[0]}}</p>
+        </div>
+    {% endfor %}
+</body>
+
 {% endblock %}

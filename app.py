@@ -93,7 +93,17 @@ def parks():
 
 @app.route('/clothing')
 def clothing():
-    return render_template('clothing.html')
+    clothesDict = {
+                    "Park Tee":["$25", "parkshirt.png"],
+                    "\"All\" Love Tee":["$25", "allloveshirt.png"],
+                    "Park Shorts":["$20", "parkshorts.png"],
+                    "\"All Love\" Shorts":["$20", "allloveshorts.png"],
+                    "Cargo Pants":["$30", "pants.png"],
+                    "Hearty Hiker Boots":["$60", "boots.png"],
+                    "Packed Up Park Backpack":["$35", "backpack.png"]
+    }
+
+    return render_template('clothing.html', clothesDict = clothesDict)
 
 # @app.route('/parkai', methods=['GET', 'POST'])
 # def parkai():
