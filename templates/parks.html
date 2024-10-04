@@ -10,11 +10,14 @@
 </form>
 
 <div>
+    <div>
     {% if filtered_parks is not none %}
         <h2>Map of Parks in {{ park_city }}</h2>
-        <div>{{ map_html|safe }}</div>
+        <div class="map-container">{{ map_html|safe }}</div>
         <h2>Weather in {{ park_city }}</h2>
-
+    </div>
+    
+    <div>
         {% if weather_data %}
             {% if 'error' in weather_data %}
                 <p>{{ weather_data.error }}</p>
@@ -33,6 +36,7 @@
             {% endif %}
         {% endif %}
     {% endif %}
+    </div>
 </div>
 
 {% endblock %}

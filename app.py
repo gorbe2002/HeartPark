@@ -59,7 +59,7 @@ def parks():
 
             # Create a folium map centered at the average latitude and longitude of filtered parks
             map_center = [filtered_parks['latitude'].mean(), filtered_parks['longitude'].mean()]
-            folium_map = folium.Map(location=map_center, zoom_start=14)
+            folium_map = folium.Map(location=map_center, zoom_start=12)
 
             print(folium_map)
 
