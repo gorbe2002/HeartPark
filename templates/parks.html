@@ -24,8 +24,12 @@
                     <li>Temperature: {{ weather_data.temp }}°C</li>
                     <li>Humidity: {{ weather_data.humidity }}%</li>
                 </ul>
-                <h3>Clothing Recommendation</h3>
-                <p>{{ clothing_recommendation }}</p>
+                <h3>Outfit Recommendation</h3>
+                <ul>
+                    {% for item in clothing_recommendation %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
         {% endif %}
     {% endif %}

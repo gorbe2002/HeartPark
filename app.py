@@ -45,7 +45,7 @@ def parks():
     park_city = ""
     map_html = ""
     weather_data = None
-    clothing_recommendation = ""
+    clothing_recommendation = []
 
     if request.method == 'POST':
         user_input = request.form['zip_code']
@@ -93,16 +93,10 @@ def parks():
 
                 # Determine clothing recommendation based on temperature (temp is in Celcius)
                 temperature = weather_data['temp']
-                if temperature < 0:
-                    clothing_recommendation = "Wear heavy winter clothing: a warm coat, gloves, and a hat."
-                elif 0 <= temperature < 10:
-                    clothing_recommendation = "Wear warm layers: a sweater and a jacket."
-                elif 10 <= temperature < 20:
-                    clothing_recommendation = "Wear a light jacket and comfortable clothing."
-                elif 20 <= temperature < 30:
-                    clothing_recommendation = "Wear summer clothing: shorts and a t-shirt."
+                if temperature < 20:
+                    clothing_recommendation.extend(["T-Shirt", "Pants", "Walking Shoes", "Backpacks"])
                 else:
-                    clothing_recommendation = "Stay cool with light clothing and stay hydrated!"
+                    clothing_recommendation.extend(["T-Shirt", "Shorts", "Walking Shoes", "Backpacks"])
 
             else:
                 weather_data = {'error': 'Could not retrieve weather information'}
