@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Load environment variables from the .env file
+export $(grep -v '^#' .env | xargs)
+
+# Activate your virtual environment if necessary
+# Uncomment the line below and replace 'path_to_your_venv' with your virtual environment path
+# source path_to_your_venv/bin/activate
+
+# Run the Flask application with Gunicorn
+gunicorn -w 4 -b 127.0.0.1:8000 app:app
+
+# If you prefer to run it directly with Flask, use the following line instead:
+# flask run --host=0.0.0.0 --port=8000
