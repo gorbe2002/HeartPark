@@ -45,6 +45,7 @@ def parks():
     park_city = ""
     map_html = ""
     weather_data = None
+    clothing_recommendation = ""
 
     if request.method == 'POST':
         user_input = request.form['zip_code']
@@ -89,10 +90,24 @@ def parks():
                     'temp': weather_json['main']['temp'],
                     'humidity': weather_json['main']['humidity']
                 }
+
+                # Determine clothing recommendation based on temperature
+                temperature = weather_data['temp']
+                if temperature < 0:
+                    clothing_recommendation = "Wear heavy winter clothing: a warm coat, gloves, and a hat."
+                elif 0 <= temperature < 10:
+                    clothing_recommendation = "Wear warm layers: a sweater and a jacket."
+                elif 10 <= temperature < 20:
+                    clothing_recommendation = "Wear a light jacket and comfortable clothing."
+                elif 20 <= temperature < 30:
+                    clothing_recommendation = "Wear summer clothing: shorts and a t-shirt."
+                else:
+                    clothing_recommendation = "Stay cool with light clothing and stay hydrated!"
+
             else:
                 weather_data = {'error': 'Could not retrieve weather information'}
 
-    return render_template('parks.html', map_html=map_html, filtered_parks=filtered_parks, park_city=park_city, weather_data=weather_data)
+    return render_template('parks.html', map_html=map_html, filtered_parks=filtered_parks, park_city=park_city, weather_data=weather_data, clothing_recommendation=clothing_recommendation)
 
 @app.route('/outfits')
 def outfits():

@@ -11,7 +11,7 @@
 
 <div>
     {% if filtered_parks is not none %}
-        <h2>Filtered Parks</h2>
+        <h2>Map of Parks in {{ park_city }}</h2>
         <div>{{ map_html|safe }}</div>
         <h2>Weather in {{ park_city }}</h2>
 
@@ -24,6 +24,8 @@
                     <li>Temperature: {{ weather_data.temp }}°C</li>
                     <li>Humidity: {{ weather_data.humidity }}%</li>
                 </ul>
+                <h3>Clothing Recommendation</h3>
+                <p>{{ clothing_recommendation }}</p>
             {% endif %}
         {% endif %}
     {% endif %}
